@@ -88,21 +88,21 @@ final class MovieQuizViewController: UIViewController {
     
     @IBAction private func noButtonClicked(_ sender: Any) {
         changeStateButtons(isEnabled: false)
-        let currentQuestion = questions[currentQuestionIndex]
-        let givenAnswer = false
+        
+        let currentQuestion = questions[currentQuestionIndex].correctAnswer
         
         showAnswerResult(
-            isCorrect: givenAnswer == currentQuestion.correctAnswer
+            isCorrect: currentQuestion == false
         )
     }
 
     @IBAction private func yesButtonClicked(_ sender: Any) {
         changeStateButtons(isEnabled: false)
-        let currentQuestion = questions[currentQuestionIndex]
-        let givenAnswer = true
+        
+        let currentQuestion = questions[currentQuestionIndex].correctAnswer
         
         showAnswerResult(
-            isCorrect: givenAnswer == currentQuestion.correctAnswer
+            isCorrect: currentQuestion == true
         )
     }
     
