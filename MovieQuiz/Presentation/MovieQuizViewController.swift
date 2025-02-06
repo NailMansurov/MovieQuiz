@@ -1,7 +1,8 @@
 import UIKit
 
 final class MovieQuizViewController: UIViewController {
-    // MARK: - Lifecycle
+    
+    // MARK: - Structs
     
     struct QuizQuestion {
         let image: String
@@ -21,6 +22,8 @@ final class MovieQuizViewController: UIViewController {
         let buttonText: String
     }
 
+    // MARK: - Private properties
+    
     private let questions: [QuizQuestion] = [
         QuizQuestion(
             image: "The Godfather",
@@ -67,9 +70,13 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var noButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
     
     private var currentQuestionIndex = 0
     private var correctAnswers = 0
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,18 +84,31 @@ final class MovieQuizViewController: UIViewController {
         show(quiz: convert(model: currentQuestion))
     }
     
+    // MARK: - Private methods
+    
     @IBAction private func noButtonClicked(_ sender: Any) {
+        changeStateButtons(isEnabled: false)
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = false
         
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        showAnswerResult(
+            isCorrect: givenAnswer == currentQuestion.correctAnswer
+        )
     }
 
     @IBAction private func yesButtonClicked(_ sender: Any) {
+        changeStateButtons(isEnabled: false)
         let currentQuestion = questions[currentQuestionIndex]
         let givenAnswer = true
         
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        showAnswerResult(
+            isCorrect: givenAnswer == currentQuestion.correctAnswer
+        )
+    }
+    
+    private func changeStateButtons(isEnabled: Bool) {
+        noButton.isEnabled = isEnabled
+        yesButton.isEnabled = isEnabled
     }
 
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
@@ -124,13 +144,15 @@ final class MovieQuizViewController: UIViewController {
     }
     
     private func showNextQuestionOrResult() {
-         if currentQuestionIndex == questions.count - 1 {
-             let text = "Ваш результат: \(correctAnswers)/10"
-             let viewModel = QuizResultsViewModel(
+        changeStateButtons(isEnabled: true)
+        
+        if currentQuestionIndex == questions.count - 1 {
+            let text = "Ваш результат: \(correctAnswers)/10"
+            let viewModel = QuizResultsViewModel(
                 title: "Этот раунд окончен!",
                 text: text,
                 buttonText: "Сыграть ещё раз")
-             show(quiz: viewModel)
+            show(quiz: viewModel)
         } else {
             currentQuestionIndex += 1
             
@@ -147,7 +169,10 @@ final class MovieQuizViewController: UIViewController {
             message: result.text,
             preferredStyle: .alert)
         
-        let action = UIAlertAction(title: result.buttonText, style: .default) { _ in
+        let action = UIAlertAction(
+            title: result.buttonText,
+            style: .default
+        ) { _ in
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             
