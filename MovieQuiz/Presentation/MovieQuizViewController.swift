@@ -69,7 +69,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             isCorrect: currentQuestion.correctAnswer == false
         )
     }
-
+    
     @IBAction private func yesButtonClicked(_ sender: Any) {
         changeStateButtons(isEnabled: false)
         
@@ -84,7 +84,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         noButton.isEnabled = isEnabled
         yesButton.isEnabled = isEnabled
     }
-
+    
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
             image: UIImage(data: model.image) ?? UIImage(),
@@ -99,7 +99,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         counterLabel.text = step.questionNumber
         imageView.layer.borderWidth = 0
     }
-
+    
     private func showAnswerResult(isCorrect: Bool) {
         imageView.layer.masksToBounds = true
         imageView.layer.borderWidth = 8
@@ -151,14 +151,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             buttonText: result.buttonText,
             completion: { [weak self] in
                 guard let self = self else { return }
-            
+                
                 self.currentQuestionIndex = 0
                 self.correctAnswers = 0
-            
+                
                 self.questionFactory?.requestNextQuestion()
             }
         )
-
+        
         AlertPresenter.showAlert(model: alertModel, viewController: self)
     }
     
@@ -188,5 +188,5 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             }
         AlertPresenter.showAlert(model: alertModel, viewController: self)
     }
-
+    
 }

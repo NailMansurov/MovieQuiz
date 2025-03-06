@@ -9,14 +9,13 @@ import Foundation
 
 final class QuestionFactory: QuestionFactoryProtocol {
     private let moviesLoader: MoviesLoading
+    private var movies: [MostPopularMovie] = []
     private weak var delegate: QuestionFactoryDelegate?
     
     init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate?) {
         self.moviesLoader = moviesLoader
         self.delegate = delegate
     }
-    
-    private var movies: [MostPopularMovie] = []
     
     func loadData() {
         moviesLoader.loadMovies { [weak self] result in
@@ -51,8 +50,20 @@ final class QuestionFactory: QuestionFactoryProtocol {
             
             let rating = Float(movie.rating) ?? 0
             
-            let text = "Рейтинг этого фильма больше чем 7?"
-            let correctAnswer = rating > 7
+            let comparison = Bool.random() ? "больше" : "меньше"
+            
+            let comparisonValue: Float
+            if comparison == "больше" {
+                comparisonValue = Float.random(in: 5..<rating)
+            } else {
+                comparisonValue = Float.random(in: rating..<9)
+            }
+            
+            let roundedComparisonValue = round(comparisonValue * 10) / 10
+            
+            let text = "Рейтинг этого фильма \(comparison) чем \(roundedComparisonValue)?"
+            
+            let correctAnswer = comparison == "больше" ? rating > roundedComparisonValue : rating < roundedComparisonValue
             
             let question = QuizQuestion(image: imageData,
                                         text: text,
