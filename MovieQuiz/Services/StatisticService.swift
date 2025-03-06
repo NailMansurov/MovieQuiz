@@ -35,7 +35,7 @@ final class StatisticService: StatisticServiceProtocol {
         get { return storage.integer(forKey: Keys.correctAnswers.rawValue) }
         set { storage.set(newValue, forKey: Keys.correctAnswers.rawValue) }
     }
-
+    
     // MARK: - Public properties
     
     // Свойство общего количества игр
@@ -90,5 +90,5 @@ final class StatisticService: StatisticServiceProtocol {
         }
         
     }
-
+    
 }
