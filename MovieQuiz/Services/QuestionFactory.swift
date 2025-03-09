@@ -56,7 +56,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
             if comparison == "больше" {
                 comparisonValue = Float.random(in: 5..<rating)
             } else {
-                comparisonValue = Float.random(in: rating..<9)
+                comparisonValue = Float.random(in: rating..<9.9)
             }
             
             let roundedComparisonValue = round(comparisonValue * 10) / 10
