@@ -25,7 +25,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
                 switch result {
                 case .success(let mostPopularMovies):
                     self.movies = mostPopularMovies.items
-                    self.delegate?.didLoadDataFromSrver()
+                    self.delegate?.didLoadDataFromServer()
                 case .failure(let error):
                     self.delegate?.didFailToLoadData(with: error)
                 }
