@@ -1,10 +1,3 @@
-//
-//  StatisticService.swift
-//  MovieQuiz
-//
-//  Created by Наиль Мансуров on 18.02.2025.
-//
-
 import Foundation
 
 final class StatisticService: StatisticServiceProtocol {
@@ -88,7 +81,5 @@ final class StatisticService: StatisticServiceProtocol {
             storage.set(newValue.total, forKey: Keys.total.rawValue)
             storage.set(newValue.date, forKey: Keys.date.rawValue)
         }
-        
     }
-    
 }
