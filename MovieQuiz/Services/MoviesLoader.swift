@@ -1,10 +1,3 @@
-//
-//  MoviesLoader.swift
-//  MovieQuiz
-//
-//  Created by Наиль Мансуров on 04.03.2025.
-//
-
 import Foundation
 
 protocol MoviesLoading {
@@ -54,5 +47,4 @@ struct MoviesLoader: MoviesLoading {
     init(networkClient: NetworkRouting = NetworkClient()) {
         self.networkClient = networkClient
     }
-    
 }

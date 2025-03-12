@@ -1,10 +1,3 @@
-//
-//  MovieLoaderTests.swift
-//  MovieQuizTests
-//
-//  Created by Наиль Мансуров on 08.03.2025.
-//
-
 import XCTest
 @testable import MovieQuiz
 
@@ -75,7 +68,6 @@ final class MoviesLoaderTests: XCTestCase {
                 expectation.fulfill()
             case .failure(_):
                 XCTFail("Unexpected failure")
-                
             }
         }
         
